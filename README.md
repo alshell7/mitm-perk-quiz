@@ -142,9 +142,9 @@ ticks to start off) these things happen..
 
  
 
-1.  Parse the data and display it graphically in structured way to user.
+2.  Parse the data and display it graphically in structured way to user.
 
-2.  When the user selects the option, verify if it is correct in this way,
+3.  When the user selects the option, verify if it is correct in this way,
 
     1.  Add (concatenate) the the **access\_token** and the option’s **id**
         (JSON attribute) of that question.
@@ -237,7 +237,6 @@ Things Required
 
 So what are we waiting for?, lets get started right away!
 
- 
 
 STEP 1 (setting up the things...)
 ---------------------------------
@@ -301,7 +300,6 @@ If everything was followed up correctly so far, you should see all the web
 sessions (the requests and their responses) captured inside fiddler, made by all
 your installed android apps (and of your systems too).
 
- 
 
 STEP 2 (getting your Perk identity)
 -----------------------------------
@@ -343,9 +341,8 @@ request which holds the *access\_token* that designates our identity in the app.
     app in other phone, with your identity.
 
 The above two steps are not required to perform repeatedly, on each hack. As
-long as you are not performing the this hack on different Wi-Fi network.
+long as you are not performing it on different Wi-Fi network.
 
- 
 
 STEP 3 (sharpening up the tools)
 --------------------------------
@@ -438,7 +435,7 @@ Ultimately...
 
 -   Get ready.
 
--   Open the the Perk Pop Quiz in your phone.
+-   Open the Perk Pop Quiz in your phone.
 
 -   Select **any** quiz category to play.
 
