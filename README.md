@@ -405,7 +405,7 @@ steps to follow are below..
     {
       String filePerk = "H:\\#alshell\\perk_data.txt";
       System.IO.File.WriteAllText(filePerk, oSession.GetResponseBodyAsString());
-      System.Diagnostics.Process.Start("python", filePerk);
+      System.Diagnostics.Process.Start("python", "MainMod.py --jsondata " + filePerk);
     }
 ```
  
