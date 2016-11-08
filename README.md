@@ -395,7 +395,7 @@ steps to follow are below..
 
 -   You can see the *FiddlerScript Rules file* opened in Fiddler Script Editor.
 
--   Place this below namespace imports on top of this script.
+-   Place this below namespace imports on top of this Rules file
     ```
     import System.Diagnostics;
     import System.IO;
