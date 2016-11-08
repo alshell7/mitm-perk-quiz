@@ -1,47 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
     <title>Mitm-perk-quiz by alshell7</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
-
   <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/alshell7/mitm-perk-quiz">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/alshell7/mitm-perk-quiz/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/alshell7/mitm-perk-quiz/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <header>
-      <div class="container">
-        <h1>Mitm-perk-quiz</h1>
-        <h2>hacking Perk Pop Quiz (Android/iOS game) by mitm</h2>
+    <div class="wrapper">
 
-        <section id="downloads">
-          <a href="https://github.com/alshell7/mitm-perk-quiz/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/alshell7/mitm-perk-quiz/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/alshell7/mitm-perk-quiz" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+      <section>
+        <div id="title">
+          <h1>Mitm-perk-quiz</h1>
+          <p>hacking Perk Pop Quiz (Android/iOS game) by mitm</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/alshell7">alshell7</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
 
-    <div class="container">
-      <section id="main_content">
         <h1>
 <a id="mitm-perk-quiz" class="anchor" href="#mitm-perk-quiz" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>mitm-perk-quiz</h1>
 
 <blockquote>
-<p><strong>Perk Pop Quiz</strong>
-  Well its one of those apps (available for Android/ iOS) which award you with
+<p><strong>Perk Pop Quiz</strong></p>
+
+<p>Well its one of those apps (available for Android/ iOS) which award you with
   special bonuses like Gift Cards, points redeeming to Cash!, or even buy few
   stuff with the points you have collected by playing quiz, answering to the
-  questions on any topic you like. As simple as that.
- </p>
+  questions on any topic you like. As simple as that.</p>
+</blockquote>
+
+<p> </p>
 
 <h2>
 <a id="so-whats-mitm-perk-quiz" class="anchor" href="#so-whats-mitm-perk-quiz" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>So? What’s mitm-perk-quiz?</h2>
-</blockquote>
 
 <p>Well straight and simple, here we are going to learn, how to be a serious smart
 pant, a great genius, a walking Wikipedia, a human version of IBM’s Watson, who
@@ -60,8 +72,9 @@ do no mistakes.</p>
 it from the options given to you for that question of that particular session.</strong></p>
 
 <p><strong>So how are we going to do that?</strong>. Exactly, that is what we are going to know
-how, check it out below..
- </p>
+how, check it out below..</p>
+
+<p> </p>
 
 <h2>
 <a id="scenario" class="anchor" href="#scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario...</h2>
@@ -97,8 +110,9 @@ ticks to start off) these things happen..</p>
 <a id="server-responsibility" class="anchor" href="#server-responsibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server Responsibility:</h3>
 
 <blockquote>
-<p>Host = api-tv.perk.com
-URL = /v5/ppq/questions.json</p>
+<p>Host = api-tv.perk.com</p>
+
+<p>URL = /v5/ppq/questions.json</p>
 </blockquote>
 
 <ol>
@@ -177,13 +191,12 @@ it, that was registered and stored for that particular user.</p></li>
 <p>When the user selects the option, verify if it is correct in this way,</p>
 
 <ol>
-<li> Add (concatenate) the the <strong>access_token</strong> and the option’s <strong>id</strong>
-(JSON attribute) of that question.</li>
-<li> Calculate the <strong>SHA-1</strong> of the sum from above.</li>
-<li> Check each of the resultant hash of the options <strong>id’s</strong> are equal to
+<li><p>Add (concatenate) the the <strong>access_token</strong> and the option’s <strong>id</strong>
+(JSON attribute) of that question.</p></li>
+<li><p>Calculate the <strong>SHA-1</strong> of the sum from above.</p></li>
+<li><p>Check each of the resultant hash of the options <strong>id’s</strong> are equal to
 the <strong>Correct</strong> attribute of the question. The one which equals is the
-<strong>right option!</strong>
-</li>
+<strong>right option!</strong></p></li>
 </ol>
 </li>
 </ol>
@@ -300,10 +313,10 @@ things are set up)</p>
 <blockquote>
 <p>Make sure your PC and your android phone is connected to the same network.
   That would simply mean, connecting to a same Wi-Fi.</p>
+</blockquote>
 
 <h3>
 <a id="setting-up-the-fiddler-so-that-we-can-intercept-the-requests-of-the-perk-pop-quiz-on-your-phone" class="anchor" href="#setting-up-the-fiddler-so-that-we-can-intercept-the-requests-of-the-perk-pop-quiz-on-your-phone" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting up the fiddler, so that we can intercept the requests of the Perk Pop Quiz on your phone.</h3>
-</blockquote>
 
 <ul>
 <li>
@@ -343,18 +356,18 @@ internet works on, select <code>Status,</code>click on <code>Details...</code>, 
 connected to.</p>
 
 <ul>
-<li>  Click on <code>Modify network config,</code> check on <code>Show advanced
-options,</code>you’ll be provided with more options to configure.</li>
-<li>  Select <code>Manual</code> for under <em>Proxy</em> spinner.</li>
-<li>  Now type the <code>Autoconfiguration IPv4 address</code> of the PC you noted down,
+<li><p>Click on <code>Modify network config,</code> check on <code>Show advanced
+options,</code>you’ll be provided with more options to configure.</p></li>
+<li><p>Select <code>Manual</code> for under <em>Proxy</em> spinner.</p></li>
+<li><p>Now type the <code>Autoconfiguration IPv4 address</code> of the PC you noted down,
 in the <code>Proxy hostname</code>textview, and there below, enter the number
-<code>8888</code> in the <code>Proxy port</code> textview.</li>
+<code>8888</code> in the <code>Proxy port</code> textview.</p></li>
 </ul>
 </li>
-<li>  Go to your phones default web browser, and type <code>http://ipv4.fiddler:8888/</code>
+<li><p>Go to your phones default web browser, and type <code>http://ipv4.fiddler:8888/</code>
 in the search bar. Download the certificate and install it. This trusted
 certificate is required to help the network of your android phone to be
-monitored by fiddler.</li>
+monitored by fiddler.</p></li>
 </ul>
 
 <blockquote>
@@ -381,14 +394,14 @@ session list of the Fiddler one after the other. Its time now, we capture that
 request which holds the <em>access_token</em> that designates our identity in the app.</p>
 
 <ul>
-<li>  Open the <em>Perk Pop Quiz</em> app in your phone,. You may notice continuous
+<li><p>Open the <em>Perk Pop Quiz</em> app in your phone,. You may notice continuous
 requests that are made by the app are being updated on Fiddler in your PC.
-For now, you don’t have to investigate anything. Let them get captured.</li>
-<li>  Play any quiz of your choice. Well if you did any mistakes in this quiz, it
+For now, you don’t have to investigate anything. Let them get captured.</p></li>
+<li><p>Play any quiz of your choice. Well if you did any mistakes in this quiz, it
 might be the last time ha ha <g-emoji alias="broken_heart" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f494.png" ios-version="6.0">💔</g-emoji>. Well after you finish playing, close the
-app.</li>
-<li>  Head back to Fiddler, press <code>Ctrl+F</code> or you can go to <code>Edit &gt; Find
-Sessions...</code> from the menu strip.</li>
+app.</p></li>
+<li><p>Head back to Fiddler, press <code>Ctrl+F</code> or you can go to <code>Edit &gt; Find
+Sessions...</code> from the menu strip.</p></li>
 <li>
 <p>Type <code>https://api-tv.perk.com/v6/ppq/tags?access_token=</code></p>
 
@@ -409,9 +422,9 @@ access_token !!. Just look at your left in <code>Inpector</code> section, under
   my access_token, no worries)</em></p>
 </blockquote>
 </li>
-<li>  Note down the access_token (that 40 character value you just found). I
+<li><p>Note down the access_token (that 40 character value you just found). I
 believe this might vary if you reinstall the app, or if you installed the
-app in other phone, with your identity.</li>
+app in other phone, with your identity.</p></li>
 </ul>
 
 <p>The above two steps are not required to perform repeatedly, on each hack. As
@@ -465,11 +478,10 @@ steps to follow are below..</p>
 <a id="make-the-script-to-self-trigger-the-moment-when-quiz-starts" class="anchor" href="#make-the-script-to-self-trigger-the-moment-when-quiz-starts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Make the script to self trigger, the moment when quiz starts</h3>
 
 <ul>
-<li>  Create a text file (with .json extension) in your preferred directory (not under <em>C:\</em>* ), for
-instance, in my case <em>“H:\#alshell\perk_data.json”.</em>
-</li>
-<li>  Click on <code>Rules</code> option in the Menu, Select <code>Customize Rules...</code> under it.</li>
-<li>  You can see the <em>FiddlerScript Rules file</em> opened in Fiddler Script Editor.</li>
+<li><p>Create a text file (with .json extension) in your preferred directory (not under <em>C:\</em>* ), for
+instance, in my case <em>“H:\#alshell\perk_data.json”.</em></p></li>
+<li><p>Click on <code>Rules</code> option in the Menu, Select <code>Customize Rules...</code> under it.</p></li>
+<li><p>You can see the <em>FiddlerScript Rules file</em> opened in Fiddler Script Editor.</p></li>
 <li>
 <p>Place the below namespace imports on top of this Rules file</p>
 
@@ -480,9 +492,8 @@ import System.IO;
 </li>
 <li><p>Look out for the function, <code>static function OnDone(oSession: Session),</code>which
 is actually commented by default.</p></li>
-<li>  Uncomment that function, and place the below code inside it,.
-<em>(Make sure to do changes for <code>mitmScript</code>, and for other file locations properly used below)</em>
-</li>
+<li><p>Uncomment that function, and place the below code inside it,.
+<em>(Make sure to do changes for <code>mitmScript</code>, and for other file locations properly used below)</em></p></li>
 </ul>
 
 <div class="highlight highlight-source-cs"><pre>    <span class="pl-k">if</span> (oSession.fullUrl.Contains(<span class="pl-s"><span class="pl-pds">"</span>https://api-tv.perk.com/v5/ppq/questions.json?<span class="pl-pds">"</span></span>) &amp;&amp; oSession.responseCode == <span class="pl-c1">200</span>)
@@ -534,8 +545,10 @@ is actually commented by default.</p></li>
 
     }</pre></div>
 
-<p>That is it! Done. You are just a step away now.
- </p>
+<p> 
+That is it! Done. You are just a step away now.</p>
+
+<p> </p>
 
 <h2>
 <a id="final-step" class="anchor" href="#final-step" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FINAL STEP</h2>
@@ -544,31 +557,30 @@ is actually commented by default.</p></li>
 <a id="set-the-access_token-in-the-script" class="anchor" href="#set-the-access_token-in-the-script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set the access_token in the script.</h3>
 
 <ul>
-<li>  Open the <strong>mitm-perk-quiz.py</strong>
-</li>
-<li>  Replace the value of class attribute <code>def_auth_token</code> with the
-<em>access_token</em> you noted down in <strong>STEP 2</strong>
+<li><p>Open the <strong>mitm-perk-quiz.py</strong></p></li>
+<li>
+<p>Replace the value of class attribute <code>def_auth_token</code> with the
+<em>access_token</em> you noted down in <strong>STEP 2</strong></p>
 
 <ul>
 <li>Example, from <code>def_auth_token = None</code> to <code>def_auth_token = "c6ffaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXfe4d1"</code>
 </li>
 </ul>
 </li>
-<li>  Cheers!. You are about to be that smart pant.</li>
+<li><p>Cheers!. You are about to be that smart pant.</p></li>
 </ul>
 
 <h2>
 <a id="ultimately" class="anchor" href="#ultimately" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ultimately...</h2>
 
 <ul>
-<li>  Make yourself comfortable.</li>
-<li>  Get ready.</li>
-<li>  Open the Perk Pop Quiz in your phone.</li>
-<li>  Select <strong>any</strong> quiz category to play.</li>
-<li>  Watch the screen of your PC, serving you with answers, the moment quiz
-begins.</li>
-<li>  <strong>Seamlessly tap the answers!.</strong>
-</li>
+<li><p>Make yourself comfortable.</p></li>
+<li><p>Get ready.</p></li>
+<li><p>Open the Perk Pop Quiz in your phone.</p></li>
+<li><p>Select <strong>any</strong> quiz category to play.</p></li>
+<li><p>Watch the screen of your PC, serving you with answers, the moment quiz
+begins.</p></li>
+<li><p><strong>Seamlessly tap the answers!.</strong></p></li>
 </ul>
 
 <p>Hope you felt cozy with the steps. I’d be grateful if I were too let know
@@ -580,8 +592,9 @@ Have a nice perk time <g-emoji alias="boom" fallback-src="https://assets-cdn.git
 
 <p>The content of this project itself is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/us/deed.en_US">Creative Commons Attribution 3.0 license</a>, and the underlying source code used to format and display that content is licensed under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>.</p>
       </section>
-    </div>
 
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
   </body>
 </html>
