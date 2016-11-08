@@ -388,24 +388,69 @@ steps to follow are below..
 
 ### Make the script to self trigger, the moment when quiz starts
 
--   Create a text file in your preferred directory (not under *C:\\*\* ), for
-    instance, in my case *“H:\\\#alshell\\perk\_data.txt”.*
+-   Create a text file (with json extension) in your preferred directory (not under *C:\\*\* ), for
+    instance, in my case *“H:\\\#alshell\\perk\_data.json”.*
 
 -   Click on `Rules` option in the Menu, Select `Customize Rules...` under it.
 
 -   You can see the *FiddlerScript Rules file* opened in Fiddler Script Editor.
 
+-   Place this below namespace imports on top of this script.
+    ```
+    import System.Diagnostics;
+    import System.IO;
+    ```
+    
 -   Look out for the function, `static function OnDone(oSession: Session),`which
     is actually commented by default.
 
--   Uncomment that function, and place the below code inside it,.
-
+-   Uncomment that function, and place the below code inside it,. *(Make sure do changes respectively as asked in)*
+    
 ```c#
-    if(oSession.fullUrl.Contains("https://api-tv.perk.com/v5/ppq/questions.json?"))
+    if (oSession.fullUrl.Contains("https://api-tv.perk.com/v5/ppq/questions.json?") && oSession.responseCode == 200)
     {
-      String filePerk = "H:\\#alshell\\perk_data.txt";
+      //Save the complete response in a file that you created
+      var filePerk = "H:\\#owais\\perk_data.json";
       System.IO.File.WriteAllText(filePerk, oSession.GetResponseBodyAsString());
-      System.Diagnostics.Process.Start("python", "MainMod.py --jsondata " + filePerk);
+      
+      //This is the location of the script which processes the response.
+      //Change it to your version of location.
+      //Notice and place the Backslash constants correctly.
+      var mitmScript: String = "\"H:\\#projects\\Python Scripts\\mitm-perk-quiz.py\"";
+      
+      //Parameter to send for the python script
+      //This is different from the filePerk object above though,
+      //just the backslash constants are included well
+      //for the sake of correct parameter to be passed for the script
+      var jf: String = "\"H:\\#owais\\perk_data.json\"";
+      
+      //The location of the python interpreter must be present in the Environment Variables of your system.
+      var myProcessStartInfo: ProcessStartInfo = new ProcessStartInfo("python");
+      
+      //The script returns the output, configure the process to receive it through Standard Output
+      myProcessStartInfo.UseShellExecute = false;
+      myProcessStartInfo.RedirectStandardOutput = true;
+      
+      //Set the arguments to the script
+      myProcessStartInfo.Arguments = mitmScript + " --jsonfile " + jf;
+      
+      var myProcess: Process = new Process();
+      myProcess.StartInfo = myProcessStartInfo; 
+      
+      //Start the execution of script
+      myProcess.Start();
+      
+      //Read the output
+      var myStreamReader: StreamReader = myProcess.StandardOutput; 
+      var myResults = myStreamReader.ReadToEnd();
+      
+      //Wait from the script to exit and then quit the process executing it.
+      myProcess.WaitForExit(); 
+      myProcess.Close();
+      
+      //Display the results
+      MessageBox.Show(myResults);
+      
     }
 ```
  
@@ -419,10 +464,11 @@ FINAL STEP
 
 ### Set the access\_token in the script.
 
--   Open the **MainMod.py**
+-   Open the **mitm-perk-quiz.py**
 
 -   Replace the value of class attribute `def_auth_token` with the
     *access\_token* you noted down in **STEP 2**
+    - From `def_auth_token = None` to `def_auth_token = "c6ffaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXfe4d1"`
 
 -   Cheers!. You are about to be that smart pant.
 
