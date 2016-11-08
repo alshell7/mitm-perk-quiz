@@ -15,7 +15,7 @@ So? What’s mitm-perk-quiz?
 
 Well straight and simple, here we are going to learn, how to be a serious smart
 pant, a great genius, a walking Wikipedia, a human version of IBM’s Watson, who
-could just answer any any general/technical question, like how Google would come
+could just answer any any general question, like how Google would come
 up with the results!. So, we learn here now, and then, answer the questions that
 are asked to us in this [Perk Pop Quiz](https://play.google.com/store/apps/details?id=com.jutera.perkpopquiz.aphone&hl=en) app without having
 ever gone wrong, and finally to earn points (the cash redeeming you know).
@@ -395,8 +395,9 @@ steps to follow are below..
 
 -   You can see the *FiddlerScript Rules file* opened in Fiddler Script Editor.
 
--   Place this below namespace imports on top of this Rules file
+-   Place the below namespace imports on top of this Rules file
     ```
+    import System;
     import System.Diagnostics;
     import System.IO;
     ```
@@ -411,7 +412,7 @@ steps to follow are below..
     if (oSession.fullUrl.Contains("https://api-tv.perk.com/v5/ppq/questions.json?") && oSession.responseCode == 200)
     {
       //Save the complete response in a file that you created
-      var filePerk = "H:\\#owais\\perk_data.json";
+      var filePerk = "H:\\#alshell\\perk_data.json";
       System.IO.File.WriteAllText(filePerk, oSession.GetResponseBodyAsString());
       
       //This is the location of the script which processes the response.
@@ -423,10 +424,12 @@ steps to follow are below..
       //This is different from the filePerk object above though,
       //just the Backslash Constants are included well
       //for the sake of correct parameter to be passed for the script
-      var jf: String = "\"H:\\#owais\\perk_data.json\"";
+      var jf: String = "\"H:\\#alshell\\perk_data.json\"";
       
       //The location of the python interpreter must be present
       //in the Environment Variables of your system.
+      //Otherwise the script wont be able to compile. The latest python releases have
+      //the PATH of python automatically set during the installation.
       var myProcessStartInfo: ProcessStartInfo = new ProcessStartInfo("python");
       
       //The script returns the output, configure the process to receive it through Standard Output
@@ -474,7 +477,6 @@ FINAL STEP
 
 -   Cheers!. You are about to be that smart pant.
 
- 
 
 Ultimately...
 -------------
@@ -490,13 +492,8 @@ Ultimately...
 -   Watch the screen of your PC, serving you with answers, the moment quiz
     begins.
 
--   Seamlessly tap the answers.
-
--   Buy a power bank for me soon ha ha :joy:
-
- 
+-   Seamlessly tap the answers!.
 
 Hope you felt cozy with the steps. I’d be grateful if I were too let know
 with different approach than this.
-
-Do fork me. Have a nice perk time :boom:
+Have a nice perk time :boom:
