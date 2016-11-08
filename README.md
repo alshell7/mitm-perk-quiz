@@ -9,7 +9,6 @@ mitm-perk-quiz
 >   questions on any topic you like. As simple as that.
 
  
-
 So? What’s mitm-perk-quiz?
 --------------------------
 
@@ -33,7 +32,6 @@ it from the options given to you for that question of that particular session.**
 how, check it out below..
 
  
-
 Scenario...
 -----------
 
@@ -63,7 +61,6 @@ of quiz is just about to begin (after the ads finish displaying, and the game
 ticks to start off) these things happen..
 
  
-
 ### Server Responsibility:
 
 > Host = api-tv.perk.com
@@ -91,14 +88,9 @@ ticks to start off) these things happen..
 >   }&limit= { *number of questions* }
 
  
-
 ### Client (User/App) Responsibility:
 
-1.  Receive the JSON data from the server by providing the **access\_token** to
-    it, that was registered and stored for that particular user.
-
->   For instance, the Response received is,
-
+>   Example, the Response received now is,
 >   `{"status":"success","message":null,"data":{"batch_id":"df9ec8c7c5599bdab553c24b1a2071bbcbbd738b8227549e20d9f40e3649ff20","questions":[`
 
 >   `{"id":"226702","question_text":"What is a common name for the Aurora
@@ -136,11 +128,10 @@ ticks to start off) these things happen..
 >   one!","YES!"],"incorrect":["Try again!","Try another
 >   one.",":(","Dang!","Nope :(","Ouch"]}}}`
 
->    
-
 >   You can notice the correct answer for every question is encrypted.
 
- 
+1.  Receive the JSON data from the server by providing the **access\_token** to
+    it, that was registered and stored for that particular user.
 
 2.  Parse the data and display it graphically in structured way to user.
 
@@ -155,7 +146,7 @@ ticks to start off) these things happen..
         the **Correct** attribute of the question. The one which equals is the
         **right option!**
 
->   A snippet for it from the script goes like,
+>   A snippet for it goes like,
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ python
 def verifyRightAnswer(answer_id, correct_sha, authentication_token):
@@ -188,10 +179,10 @@ can automate few things.
 But before we proceed further, I highly recommend you have the prerequisites
 that you need in order to achieve this hack successfully.
 
- 
 
 Things Required
 ---------------
+-   Sound knowledge of programming.
 
 -   Windows (7\~10) running **PC**
 
@@ -234,7 +225,6 @@ Things Required
     >   component for this whole circus to happen
 
  
-
 So what are we waiting for?, lets get started right away!
 
 
@@ -463,7 +453,6 @@ steps to follow are below..
 That is it! Done. You are just a step away now.
 
  
-
 FINAL STEP
 ----------
 
