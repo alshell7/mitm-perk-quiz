@@ -388,7 +388,7 @@ steps to follow are below..
 
 ### Make the script to self trigger, the moment when quiz starts
 
--   Create a text file (with json extension) in your preferred directory (not under *C:\\*\* ), for
+-   Create a text file (with .json extension) in your preferred directory (not under *C:\\*\* ), for
     instance, in my case *“H:\\\#alshell\\perk\_data.json”.*
 
 -   Click on `Rules` option in the Menu, Select `Customize Rules...` under it.
@@ -415,16 +415,17 @@ steps to follow are below..
       
       //This is the location of the script which processes the response.
       //Change it to your version of location.
-      //Notice and place the Backslash constants correctly.
+      //Notice and place the Backslash Constants correctly.
       var mitmScript: String = "\"H:\\#projects\\Python Scripts\\mitm-perk-quiz.py\"";
       
       //Parameter to send for the python script
       //This is different from the filePerk object above though,
-      //just the backslash constants are included well
+      //just the Backslash Constants are included well
       //for the sake of correct parameter to be passed for the script
       var jf: String = "\"H:\\#owais\\perk_data.json\"";
       
-      //The location of the python interpreter must be present in the Environment Variables of your system.
+      //The location of the python interpreter must be present
+      //in the Environment Variables of your system.
       var myProcessStartInfo: ProcessStartInfo = new ProcessStartInfo("python");
       
       //The script returns the output, configure the process to receive it through Standard Output
@@ -468,7 +469,7 @@ FINAL STEP
 
 -   Replace the value of class attribute `def_auth_token` with the
     *access\_token* you noted down in **STEP 2**
-    - From `def_auth_token = None` to `def_auth_token = "c6ffaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXfe4d1"`
+    - Example, from `def_auth_token = None` to `def_auth_token = "c6ffaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXfe4d1"`
 
 -   Cheers!. You are about to be that smart pant.
 
