@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Mitm-perk-quiz by alshell7</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Mitm-perk-quiz</h1>
+        <h2>hacking Perk Pop Quiz (Android/iOS game) by mitm</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/alshell7/mitm-perk-quiz/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/alshell7/mitm-perk-quiz/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/alshell7/mitm-perk-quiz" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a id="mitm-perk-quiz" class="anchor" href="#mitm-perk-quiz" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>mitm-perk-quiz</h1>
+
+<blockquote>
+<p><strong>Perk Pop Quiz</strong></p>
+
+<p>Well its one of those apps (available for Android/ iOS) which award you with
+  special bonuses like Gift Cards, points redeeming to Cash!, or even buy few
+  stuff with the points you have collected by playing quiz, answering to the
+  questions on any topic you like. As simple as that.</p>
+</blockquote>
+
+<p> </p>
+
+<h2>
+<a id="so-whats-mitm-perk-quiz" class="anchor" href="#so-whats-mitm-perk-quiz" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>So? What’s mitm-perk-quiz?</h2>
+
+<p>Well straight and simple, here we are going to learn, how to be a serious smart
+pant, a great genius, a walking Wikipedia, a human version of IBM’s Watson, who
+could just answer any any general question, like how Google would come
+up with the results!. So, we learn here now, and then, answer the questions that
+are asked to us in this <a href="https://play.google.com/store/apps/details?id=com.jutera.perkpopquiz.aphone&amp;hl=en">Perk Pop Quiz</a> app without having
+ever gone wrong, and finally to earn points (the cash redeeming you know).</p>
+
+<p>Okay! that’s enough now.. I was just kidding <g-emoji alias="skull" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f480.png" ios-version="6.0">💀</g-emoji> I ain’t got any super powers to
+help you with or something I can make you cast a spell to be that “Intelligent”
+<g-emoji alias="wink" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f609.png" ios-version="6.0">😉</g-emoji>. Yes but that’s true, that you would answer any question asked to you
+<strong>inside the app</strong>, so in end you can collect the points smoothly without having
+do no mistakes.</p>
+
+<p>Ahem!, pretty straight to say, <strong>just get to know the right answer, and select
+it from the options given to you for that question of that particular session.</strong></p>
+
+<p><strong>So how are we going to do that?</strong>. Exactly, that is what we are going to know
+how, check it out below..</p>
+
+<p> </p>
+
+<h2>
+<a id="scenario" class="anchor" href="#scenario" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scenario...</h2>
+
+<p>Okay!, I ain’t gonna narrate any story story here <g-emoji alias="thought_balloon" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4ad.png" ios-version="6.0">💭</g-emoji>. Its just how it all
+started for this. I were doing some web debugging (sniffing <a href="http://rve.org.uk/dumprequest">HTTP requests</a>) on the phone from my PC (performing a <em>mitm, <a href="https://en.wikipedia.org/wiki/Man-in-the-middle_attack">Man In The Middle attack</a></em>, not with any “attack” intentions really), on few of
+the android apps I installed lately, just to check how and <strong>why</strong> often do they
+communicate with network in background (of course I am damn concerned with my
+phones soon battery drain issue too <g-emoji alias="disappointed" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f61e.png" ios-version="6.0">😞</g-emoji> ..)</p>
+
+<p>It was time for this <em>Perk Pop Quiz</em> app. Gosh!, it had too many <em>HTTP requests</em>
+running in background. I played a solo quiz on a random quiz category, and
+noticed, that in one of the <a href="http://www.w3schools.com/TAGS/ref_httpmethods.asp">HTTP GET</a> requests the app
+made (prior to the moment I started the game), it contained all the Questions,
+Options, <strong>Answers,</strong> in <a href="http://www.w3schools.com/js/js_json_intro.asp">JSON</a> format. So now I got a bit mouth watered.
+I had almost thought of getting a power bank after having it known.</p>
+
+<p>But damn!, there was a critical issue to have them utilized, the answers, were,
+ENCRYPTED!. And those can only be decrypted by the app installed by the user.
+Spent 4 days trying to analyze how is the app decrypting the answers.</p>
+
+<p>Reverse Engineered the <em>apk</em> file using <a href="https://ibotpeaches.github.io/Apktool/">Apktool</a>.
+Deep shoveled the source code, apprehended the
+<a href="https://developer.android.com/reference/android/app/Activity.html">Activity</a> where the quiz is performed, and finally
+found the exact piece of code which decrypts the answers. And after that, I got
+a complete idea, and then I could wind up the stuff like below, when the session
+of quiz is just about to begin (after the ads finish displaying, and the game
+ticks to start off) these things happen..</p>
+
+<p> </p>
+
+<h3>
+<a id="server-responsibility" class="anchor" href="#server-responsibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server Responsibility:</h3>
+
+<blockquote>
+<p>Host = api-tv.perk.com</p>
+
+<p>URL = /v5/ppq/questions.json</p>
+</blockquote>
+
+<ol>
+<li><p><em>Correct</em> answer is encrypted (actually hashed) using <a href="https://en.wikipedia.org/wiki/SHA-1">SHA-1</a>
+algorithm.</p></li>
+<li><p>The <strong>Correct</strong> answer of each question is <strong>digested (as hexadecimal)</strong> by
+adding the <a href="https://en.wikipedia.org/wiki/Access_token">access_token</a> (<em>authentication token</em>
+otherwise) that was provided for the user with the right option <strong>id</strong> of
+that question.</p></li>
+<li><p>Server sends (on a user’s single HTTP GET request) the <em>questions, options</em>
+in normal text, with <em>correct</em> answer encrypted from the above process
+mentioned in step 2.</p></li>
+</ol>
+
+<blockquote>
+<p>A raw idea, is something like,</p>
+
+<p><strong>curl --get
+  <a href="https://api-tv.perk.com/v5/ppq/questions.json?access%5C_token=%7B">https://api-tv.perk.com/v5/ppq/questions.json?access\_token={</a></strong><em>a 40
+  character value</em><strong>}&amp;category_id={</strong> <em>type of quiz represented numerically</em>
+  }&amp;limit= { <em>number of questions</em> }</p>
+</blockquote>
+
+<p> </p>
+
+<h3>
+<a id="client-userapp-responsibility" class="anchor" href="#client-userapp-responsibility" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Client (User/App) Responsibility:</h3>
+
+<blockquote>
+<p>Example, the Response received now is,
+  <code>{"status":"success","message":null,"data":{"batch_id":"df9ec8c7c5599bdab553c24b1a2071bbcbbd738b8227549e20d9f40e3649ff20","questions":[</code></p>
+
+<p><code>{"id":"226702","question_text":"What is a common name for the Aurora
+  Borealis?","is_boolean":false,"img":null,"answers":[{"id":"905977","answer_text":"Gegenschein"},{"id":"905978","answer_text":"Plage"},{"id":"905975","answer_text":"Northern
+  Lights"},{"id":"905976","answer_text":"Zodiacal
+  light"}],</code><strong>"correct"</strong><code>:</code><em>"62a541f079038ed11c83b4615c926828a42d67a3"</em><code>},</code></p>
+
+<p><code>{"id":"226700","question_text":"What is usually seen near the poles in the
+  night sky that can be red, yellow or
+  green?","is_boolean":false,"img":null,"answers":[{"id":"905969","answer_text":"Gegenschein"},{"id":"905968","answer_text":"Zodiacal
+  light"},{"id":"905967","answer_text":"Aurora"},{"id":"905970","answer_text":"Plage"}],</code><strong>"correct"</strong><code>:</code><em>"a1359ec9c77390088796895854a7d2d5b803eedc"</em><code>},</code></p>
+
+<p><code>{"id":"226659","question_text":"When the Earth is directly between the Sun
+  and the Moon, it is called a\/an _________
+  eclipse.","is_boolean":false,"img":null,"answers":[{"id":"905806","answer_text":"Transit"},{"id":"905803","answer_text":"Lunar"},{"id":"905804","answer_text":"Solar"},{"id":"905805","answer_text":"Inferior
+  conjunction"}],</code><strong>"correct"</strong><code>:</code><em>"0d5f38b422b2650b74ab925c86eb7749b6bc600f"</em><code>},</code></p>
+
+<p><code>{"id":"226751","question_text":"The mantle makes up about ____% of Earth's
+  volume.","is_boolean":false,"img":null,"answers":[{"id":"906171","answer_text":"84"},{"id":"906172","answer_text":"97"},{"id":"906173","answer_text":"12"},{"id":"906174","answer_text":"20"}],</code><strong>"correct"</strong><code>:</code><em>"cb5a1e645f1ab427ac4b1654db91d0d37f5d0098"</em><code>},</code></p>
+
+<p><code>{"id":"226604","question_text":"What mineral has perfect cleavage in six
+  directions?","is_boolean":false,"img":null,"answers":[{"id":"905586","answer_text":"Fluorite"},{"id":"905585","answer_text":"Sodalite"},{"id":"905583","answer_text":"Sphalerite"},{"id":"905584","answer_text":"Diamond"}],</code><strong>"correct"</strong><code>:</code><em>"44829a277381a356295ebllb1c1ea4d827e31d1a"</em><code>},</code></p>
+
+<p><code>{"id":"226580","question_text":"What would you call the solid material that
+  is carried within the
+  stream?","is_boolean":false,"img":null,"answers":[{"id":"905487","answer_text":"Suspended
+  load"},{"id":"905490","answer_text":"Bed
+  load"},{"id":"905488","answer_text":"Dissolved
+  load"},{"id":"905489","answer_text":"Floating
+  load"}],</code><strong>"correct"</strong><code>:</code><em>"ece190cfc99bf5800a5a8d9b93999dca89dd828f"</em><code>}],</code></p>
+
+<p><code>"current_streak":0,"longest_streak":1,"answer_responses":{"correct":["You're
+  on a roll!","Smart cookie!","NAILED IT!","Aww
+  YEAH!",":D","BOOM!","BINGO!!!","You're on FIRE!","BINGO!!","Correct!","Good
+  one!","YES!"],"incorrect":["Try again!","Try another
+  one.",":(","Dang!","Nope :(","Ouch"]}}}</code></p>
+
+<p>You can notice the correct answer for every question is encrypted.</p>
+</blockquote>
+
+<ol>
+<li><p>Receive the JSON data from the server by providing the <strong>access_token</strong> to
+it, that was registered and stored for that particular user.</p></li>
+<li><p>Parse the data and display it graphically in structured way to user.</p></li>
+<li>
+<p>When the user selects the option, verify if it is correct in this way,</p>
+
+<ol>
+<li><p>Add (concatenate) the the <strong>access_token</strong> and the option’s <strong>id</strong>
+(JSON attribute) of that question.</p></li>
+<li><p>Calculate the <strong>SHA-1</strong> of the sum from above.</p></li>
+<li><p>Check each of the resultant hash of the options <strong>id’s</strong> are equal to
+the <strong>Correct</strong> attribute of the question. The one which equals is the
+<strong>right option!</strong></p></li>
+</ol>
+</li>
+</ol>
+
+<blockquote>
+<p>A snippet for it goes like,</p>
+</blockquote>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">def</span> <span class="pl-en">verifyRightAnswer</span>(<span class="pl-smi">answer_id</span>, <span class="pl-smi">correct_sha</span>, <span class="pl-smi">authentication_token</span>):
+        h <span class="pl-k">=</span> HashUtil.sha1Hash
+        right_answer_id <span class="pl-k">=</span> <span class="pl-c1">str</span>(answer_id)
+        auth_token <span class="pl-k">=</span> <span class="pl-c1">str</span>(authentication_token)
+        auth_correction <span class="pl-k">=</span> auth_token <span class="pl-k">+</span> right_answer_id
+        result <span class="pl-k">=</span> h(auth_correction)
+        <span class="pl-c">#print(result)</span>
+        <span class="pl-k">return</span> (result <span class="pl-k">==</span> correct_sha)</pre></div>
+
+<p>Whoaaa!! All this happens is in matter of a second, and <strong>you have only the next
+very 5 seconds</strong> already to answer up for the next question, by then you’ve got
+to,</p>
+
+<ol>
+<li><p>Intercept the the HTTP requests between your phone (client) and the perk
+servers.</p></li>
+<li><p>Process the JSON data and decrypt the answers and view them.</p></li>
+<li><p>Search for question and its answer that is randomly asked from the list of
+questions the server sends.</p></li>
+</ol>
+
+<p>Huff!! <strong>hell go with the perk!</strong> You must be saying this to me <img class="emoji" title=":trollface:" alt=":trollface:" src="https://assets-cdn.github.com/images/icons/emoji/trollface.png" height="20" width="20" align="absmiddle"></p>
+
+<p>Do you think we should give up here?.. Nope I don’t think so <g-emoji alias="angel" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f47c.png" ios-version="6.0">👼</g-emoji>, as long as we
+can automate few things.</p>
+
+<p>But before we proceed further, I highly recommend you have the prerequisites
+that you need in order to achieve this hack successfully.</p>
+
+<h2>
+<a id="things-required" class="anchor" href="#things-required" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Things Required</h2>
+
+<ul>
+<li><p>Sound knowledge of programming.</p></li>
+<li>
+<p>Windows (7~10) running <strong>PC</strong></p>
+
+<blockquote>
+<p>To perform the hack on</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Android</strong> Phone (of any API version, supporting Proxy on Wi-Fi)</p>
+
+<blockquote>
+<p>Play the quiz game on to</p>
+</blockquote>
+</li>
+<li>
+<p>Telerik <strong>Fiddler</strong> Web Debugger
+<a href="https://www.telerik.com/download/fiddler">(Download)</a></p>
+
+<blockquote>
+<p>To sniff the requests between phone and perk servers, and activate the
+  python script</p>
+</blockquote>
+</li>
+<li>
+<p>Fiddler <strong>SyntaxView</strong> addon
+<a href="http://fiddler2.com/r/?SYNTAXVIEWINSTALL">(Download)</a></p>
+
+<blockquote>
+<p>This is required to customize the <em>FiddlerScript Rules file</em> easily.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Python</strong> 3.5/Latest release <a href="https://www.python.org/downloads/">(Download)</a></p>
+
+<blockquote>
+<p>Compile and run the python script that can parse the response, decrypt
+  the answers, and display the results in organized way, that was sniffed
+  by Fiddler.</p>
+</blockquote>
+</li>
+<li>
+<p><strong>Per Pop Quiz</strong> <a href="https://play.google.com/store/apps/details?id=com.jutera.perkpopquiz.aphone&amp;hl=en">(Install)</a></p>
+
+<blockquote>
+<p>Bah! app of course, Watson you <g-emoji alias="ghost" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f47b.png" ios-version="6.0">👻</g-emoji></p>
+</blockquote>
+</li>
+<li>
+<p>PC and Phone connected to <strong>same network</strong>.</p>
+
+<blockquote>
+<p>PC acts as a proxy to the phone, so that the network traffic over the
+  phone can be captured as it passes through, using <em>Fiddler.</em></p>
+</blockquote>
+</li>
+<li>
+<p>And Authentication Token (<strong>access_token</strong>) (no worries, we’ll find it once
+things are set up)</p>
+
+<blockquote>
+<p>This is required to decrypt the answers, the <strong>most important</strong>
+  component for this whole circus to happen</p>
+</blockquote>
+</li>
+</ul>
+
+<p> 
+So what are we waiting for?, lets get started right away!</p>
+
+<h2>
+<a id="step-1-setting-up-the-things" class="anchor" href="#step-1-setting-up-the-things" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STEP 1 (setting up the things...)</h2>
+
+<blockquote>
+<p>Make sure your PC and your android phone is connected to the same network.
+  That would simply mean, connecting to a same Wi-Fi.</p>
+</blockquote>
+
+<h3>
+<a id="setting-up-the-fiddler-so-that-we-can-intercept-the-requests-of-the-perk-pop-quiz-on-your-phone" class="anchor" href="#setting-up-the-fiddler-so-that-we-can-intercept-the-requests-of-the-perk-pop-quiz-on-your-phone" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setting up the fiddler, so that we can intercept the requests of the Perk Pop Quiz on your phone.</h3>
+
+<ul>
+<li>
+<p>Install the Fiddler, run it, go to <code>Tools</code> in the Menu bar, click on
+<code>Telerik Fiddler Options...</code></p>
+
+<ul>
+<li>
+<p>Select <code>Connections</code> Tab,</p>
+
+<ul>
+<li><p>Set the value of <code>Fiddler listens on port:</code>to <strong>8888</strong></p></li>
+<li><p>Check the <code>Monitor all connections</code> option</p></li>
+<li><p>Check the <code>Allow remote computers to connect</code> option</p></li>
+<li><p>Check the <code>Reuse client connections</code> option</p></li>
+<li><p>Check the <code>Reuse server connections</code> option</p></li>
+</ul>
+</li>
+<li>
+<p>Select <code>HTTPS</code> Tab,</p>
+
+<ul>
+<li><p>Check the <code>Capture HTTPS connects</code> option</p></li>
+<li><p>Check the <code>Decrypt HTTPS traffic</code> option</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Restart the Fiddler.</p></li>
+<li><p>Now navigate to <code>Control Panel &gt; Network and Internet &gt; Network and Sharing
+Center &gt; Change adapter settings.</code> Right click on the Wi-Fi adapter your
+internet works on, select <code>Status,</code>click on <code>Details...</code>, and note down the
+<code>Autoconfiguration IPv4 address.</code></p></li>
+<li>
+<p>In your android phone, Go to Wi-Fi settings, long press the network you are
+connected to.</p>
+
+<ul>
+<li><p>Click on <code>Modify network config,</code> check on <code>Show advanced
+options,</code>you’ll be provided with more options to configure.</p></li>
+<li><p>Select <code>Manual</code> for under <em>Proxy</em> spinner.</p></li>
+<li><p>Now type the <code>Autoconfiguration IPv4 address</code> of the PC you noted down,
+in the <code>Proxy hostname</code>textview, and there below, enter the number
+<code>8888</code> in the <code>Proxy port</code> textview.</p></li>
+</ul>
+</li>
+<li><p>Go to your phones default web browser, and type <code>http://ipv4.fiddler:8888/</code>
+in the search bar. Download the certificate and install it. This trusted
+certificate is required to help the network of your android phone to be
+monitored by fiddler.</p></li>
+</ul>
+
+<blockquote>
+<p>I haven’t tried up with iPhone version. Well things should remain same as
+  long as iOS permits to install the certificates, and run proxy over Wi-Fi.</p>
+</blockquote>
+
+<ul>
+<li>  Run the fiddler now.</li>
+</ul>
+
+<p>If everything was followed up correctly so far, you should see all the web
+sessions (the requests and their responses) captured inside fiddler, made by all
+your installed android apps (and of your systems too).</p>
+
+<h2>
+<a id="step-2-getting-your-perk-identity" class="anchor" href="#step-2-getting-your-perk-identity" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STEP 2 (getting your Perk identity)</h2>
+
+<h3>
+<a id="finding-the-authentication-token-access_token" class="anchor" href="#finding-the-authentication-token-access_token" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Finding the authentication token (<strong>access_token</strong>)</h3>
+
+<p>As the requests are made by the phone, you can see them getting added up in the
+session list of the Fiddler one after the other. Its time now, we capture that
+request which holds the <em>access_token</em> that designates our identity in the app.</p>
+
+<ul>
+<li><p>Open the <em>Perk Pop Quiz</em> app in your phone,. You may notice continuous
+requests that are made by the app are being updated on Fiddler in your PC.
+For now, you don’t have to investigate anything. Let them get captured.</p></li>
+<li><p>Play any quiz of your choice. Well if you did any mistakes in this quiz, it
+might be the last time ha ha <g-emoji alias="broken_heart" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f494.png" ios-version="6.0">💔</g-emoji>. Well after you finish playing, close the
+app.</p></li>
+<li><p>Head back to Fiddler, press <code>Ctrl+F</code> or you can go to <code>Edit &gt; Find
+Sessions...</code> from the menu strip.</p></li>
+<li>
+<p>Type <code>https://api-tv.perk.com/v6/ppq/tags?access_token=</code></p>
+
+<ul>
+<li>  You can see the session being highlighted. That’s it, there goes your
+access_token !!. Just look at your left in <code>Inpector</code> section, under
+<code>Header</code> tab.</li>
+</ul>
+
+<p>You will have it in this way,</p>
+
+<blockquote>
+<p>GET
+  /v6/ppq/tags?<strong>access_token=c6ffaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXfe4d1</strong>
+  HTTP/1.1</p>
+
+<p><em>(the original characters are replaced with...XXXXX... in above to hide
+  my access_token, no worries)</em></p>
+</blockquote>
+</li>
+<li><p>Note down the access_token (that 40 character value you just found). I
+believe this might vary if you reinstall the app, or if you installed the
+app in other phone, with your identity.</p></li>
+</ul>
+
+<p>The above two steps are not required to perform repeatedly, on each hack. As
+long as you are not performing it on different Wi-Fi network.</p>
+
+<h2>
+<a id="step-3-sharpening-up-the-tools" class="anchor" href="#step-3-sharpening-up-the-tools" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>STEP 3 (sharpening up the tools)</h2>
+
+<blockquote>
+<p>Make sure you’ve installed SyntaxView addon for fiddler. Not compulsory
+  though.</p>
+</blockquote>
+
+<p>This was the most difficult part for me to step up. But thankfully succeeded in
+making it out. I wouldn’t even write this all if I failed. Everything was done,
+I got even the script written to decrypt, and display the results. So when I
+tried playing the quiz, with the things I had now, the moment I begun with the
+quiz, captured the response (one which server sends from the URL
+<em>/v5/ppq/questions.json</em>), and immediately fed the response data to the script
+from the notepad, and got the results too. But guess what? I could just still
+answer one bloody question correctly :D.</p>
+
+<p>Because it took me 13 seconds to do this after the quiz started. And another 5-6
+seconds to search for question and its answer that is randomly asked from the
+list server sends (which I was talking about initially). And of all, the whole
+quiz session is just of 30-45 seconds hardly. I was doom struck with this. Can’t
+just have a partner to help me find and read out the answers. It sounds so
+ugly-hack! Yew :X.</p>
+
+<p>Then I taught of integrating any of open source available sniffers like
+<a href="https://pypi.python.org/pypi/pyshark/0.1">Pyshark</a> or <a href="http://www.secdev.org/projects/scapy/">Scapy</a> within my script. So
+that the things I did by feeding the response data to script manually, should
+now be done automatically in background, by programming in such a way to sniff
+just on the host <em>api-tv.perk.com</em>, and any request made to this host matches to
+the request which we need, its response should be fed to the scripts main module
+which process’s and display the results. Which would remove that 13-15 seconds
+lag to answer.</p>
+
+<p>Googled a lot to get it done. But, Windows didn’t let me to integrate it in some
+or the other way. The dependencies, different build tools required, the sniffers
+failed to compile, version mismatch issues with the dependencies, huff!, I
+reached the ends but felt to just give up. It was like all the time digging in,
+went in misery so far.</p>
+
+<p>But a few days later, I accidentally came on this, <code>Customize Rules..</code>option
+under <code>Rules</code> of the menu, in Fiddler. Damn good it was to know there’s such
+option too. Got hands little dirty in it, and Tada!, found the solution. The
+steps to follow are below..</p>
+
+<h3>
+<a id="make-the-script-to-self-trigger-the-moment-when-quiz-starts" class="anchor" href="#make-the-script-to-self-trigger-the-moment-when-quiz-starts" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Make the script to self trigger, the moment when quiz starts</h3>
+
+<ul>
+<li><p>Create a text file (with .json extension) in your preferred directory (not under <em>C:\</em>* ), for
+instance, in my case <em>“H:\#alshell\perk_data.json”.</em></p></li>
+<li><p>Click on <code>Rules</code> option in the Menu, Select <code>Customize Rules...</code> under it.</p></li>
+<li><p>You can see the <em>FiddlerScript Rules file</em> opened in Fiddler Script Editor.</p></li>
+<li>
+<p>Place the below namespace imports on top of this Rules file</p>
+
+<pre><code>import System;
+import System.Diagnostics;
+import System.IO;
+</code></pre>
+</li>
+<li><p>Look out for the function, <code>static function OnDone(oSession: Session),</code>which
+is actually commented by default.</p></li>
+<li><p>Uncomment that function, and place the below code inside it,.
+<em>(Make sure to do changes for <code>mitmScript</code>, and for other file locations properly used below)</em></p></li>
+</ul>
+
+<div class="highlight highlight-source-cs"><pre>    <span class="pl-k">if</span> (oSession.fullUrl.Contains(<span class="pl-s"><span class="pl-pds">"</span>https://api-tv.perk.com/v5/ppq/questions.json?<span class="pl-pds">"</span></span>) &amp;&amp; oSession.responseCode == <span class="pl-c1">200</span>)
+    {
+      <span class="pl-c">//Save the complete response in a file that you created</span>
+      <span class="pl-k">var</span> filePerk = <span class="pl-s"><span class="pl-pds">"</span>H:<span class="pl-cce">\\</span>#alshell<span class="pl-cce">\\</span>perk_data.json<span class="pl-pds">"</span></span>;
+      System.IO.File.WriteAllText(filePerk, oSession.GetResponseBodyAsString());
+
+      <span class="pl-c">//This is the location of the script which processes the response.</span>
+      <span class="pl-c">//Change it to your version of location.</span>
+      <span class="pl-c">//Notice and place the Backslash Constants correctly.</span>
+      <span class="pl-k">var</span> mitmScript: String = <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\"</span>H:<span class="pl-cce">\\</span>#projects<span class="pl-cce">\\</span>Python Scripts<span class="pl-cce">\\</span>mitm-perk-quiz.py<span class="pl-cce">\"</span><span class="pl-pds">"</span></span>;
+
+      <span class="pl-c">//Parameter to send for the python script</span>
+      <span class="pl-c">//This is different from the filePerk object above though,</span>
+      <span class="pl-c">//just the Backslash Constants are included well</span>
+      <span class="pl-c">//for the sake of correct parameter to be passed for the script</span>
+      <span class="pl-k">var</span> jf: String = <span class="pl-s"><span class="pl-pds">"</span><span class="pl-cce">\"</span>H:<span class="pl-cce">\\</span>#alshell<span class="pl-cce">\\</span>perk_data.json<span class="pl-cce">\"</span><span class="pl-pds">"</span></span>;
+
+      <span class="pl-c">//The location of the python interpreter must be present</span>
+      <span class="pl-c">//in the Environment Variables of your system.</span>
+      <span class="pl-c">//Otherwise the script wont be able to compile. The latest python releases have</span>
+      <span class="pl-c">//the PATH of python automatically set during the installation.</span>
+      <span class="pl-k">var</span> myProcessStartInfo: ProcessStartInfo = <span class="pl-k">new</span> ProcessStartInfo(<span class="pl-s"><span class="pl-pds">"</span>python<span class="pl-pds">"</span></span>);
+
+      <span class="pl-c">//The script returns the output, configure the process to receive it through Standard Output</span>
+      myProcessStartInfo.UseShellExecute = <span class="pl-c1">false</span>;
+      myProcessStartInfo.RedirectStandardOutput = <span class="pl-c1">true</span>;
+
+      <span class="pl-c">//Set the arguments to the script</span>
+      myProcessStartInfo.Arguments = mitmScript + <span class="pl-s"><span class="pl-pds">"</span> --jsonfile <span class="pl-pds">"</span></span> + jf;
+
+      <span class="pl-k">var</span> myProcess: Process = <span class="pl-k">new</span> Process();
+      myProcess.StartInfo = myProcessStartInfo; 
+
+      <span class="pl-c">//Start the execution of script</span>
+      myProcess.Start();
+
+      <span class="pl-c">//Read the output</span>
+      <span class="pl-k">var</span> myStreamReader: StreamReader = myProcess.StandardOutput; 
+      <span class="pl-k">var</span> myResults = myStreamReader.ReadToEnd();
+
+      <span class="pl-c">//Wait from the script to exit and then quit the process executing it.</span>
+      myProcess.WaitForExit(); 
+      myProcess.Close();
+
+      <span class="pl-c">//Display the results</span>
+      MessageBox.Show(myResults);
+
+    }</pre></div>
+
+<p> </p>
+
+<p>That is it! Done. You are just a step away now.</p>
+
+<p> </p>
+
+<h2>
+<a id="final-step" class="anchor" href="#final-step" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FINAL STEP</h2>
+
+<h3>
+<a id="set-the-access_token-in-the-script" class="anchor" href="#set-the-access_token-in-the-script" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set the access_token in the script.</h3>
+
+<ul>
+<li><p>Open the <strong>mitm-perk-quiz.py</strong></p></li>
+<li>
+<p>Replace the value of class attribute <code>def_auth_token</code> with the
+<em>access_token</em> you noted down in <strong>STEP 2</strong></p>
+
+<ul>
+<li>Example, from <code>def_auth_token = None</code> to <code>def_auth_token = "c6ffaXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXfe4d1"</code>
+</li>
+</ul>
+</li>
+<li><p>Cheers!. You are about to be that smart pant.</p></li>
+</ul>
+
+<h2>
+<a id="ultimately" class="anchor" href="#ultimately" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Ultimately...</h2>
+
+<ul>
+<li><p>Make yourself comfortable.</p></li>
+<li><p>Get ready.</p></li>
+<li><p>Open the Perk Pop Quiz in your phone.</p></li>
+<li><p>Select <strong>any</strong> quiz category to play.</p></li>
+<li><p>Watch the screen of your PC, serving you with answers, the moment quiz
+begins.</p></li>
+</ul>
+
+<p><img src="https://github.com/alshell7/mitm-perk-quiz/blob/master/Result.PNG" alt="Results"></p>
+
+<ul>
+<li>  <strong>Seamlessly tap the answers!.</strong>
+</li>
+</ul>
+
+<p>Hope you felt cozy with the steps. I’d be grateful if I were too let know
+with different approach than this.
+Have a nice perk time <g-emoji alias="boom" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a5.png" ios-version="6.0">💥</g-emoji></p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>The content of this project itself is licensed under the <a href="http://creativecommons.org/licenses/by/3.0/us/deed.en_US">Creative Commons Attribution 3.0 license</a>, and the underlying source code used to format and display that content is licensed under the <a href="http://opensource.org/licenses/mit-license.php">MIT license</a>.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
