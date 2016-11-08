@@ -481,7 +481,10 @@ Ultimately...
 -   Watch the screen of your PC, serving you with answers, the moment quiz
     begins.
 
--   Seamlessly tap the answers!.
+![Results](https://github.com/alshell7/mitm-perk-quiz/blob/master/Result.PNG)
+
+-   __Seamlessly tap the answers!.__
+
 
 Hope you felt cozy with the steps. I’d be grateful if I were too let know
 with different approach than this.
